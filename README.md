@@ -13,7 +13,7 @@ Quick start
     Link: "https://testclient.com"
     Redirect Url: "https://testclient.com/welcome"
     
-3. Write some ruby
+3. Open your irb console and write some code
 
 ```ruby
 
