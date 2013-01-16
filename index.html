@@ -31,32 +31,52 @@
     <!-- MAIN CONTENT -->
     <div id="main_content_wrap" class="outer">
       <section id="main_content" class="inner">
-        <h3>Welcome to GitHub Pages.</h3>
+        <h3>Welcome to the Sensr.net Apis</h3>
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
+<p>The Sensr.net APIs allows you to programmatically access content from cameras on <a href="https://sensr.net">Sensr.net</a>. For example, with the API you can write a ruby program to build a time-lapse from your camera images, or extract motion trends across several weeks. The first paragraph consists of a quick start guide. The second introduces a couple of example scripts and tries to explain the guiding principles behind the Apis and how to better leverage them.</p>
 
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
+<p>We always welcome feedback, please send your feedback regarding our Apis to developers At sensr.net</p>
+
+<h3>Quick start guide</h3>
+
+<p>This is a three step guide that should get you started and running (in ruby) quickly. You will need an account on <a href="https://sensr.net">Sensr.net</a> to get access to your Api keys.</p>
+
+<h4>Download the sensr.net gem</h4>
+<pre><code>
+  wget https://github.com/yacc/sensrapi-tutorials/sensrapi.gem
 </code></pre>
 
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
+<h4>Get your Api secret keys</h4>
 
-<h3>Designer Templates</h3>
+<p>First, login to your sensr.net account and navigate to https://sensr.net/account/applications.
+Then create a new api client, you will be asked to fill out a form with the following elements <em>Display Name</em>,  <em>Link</em> and  <em>Redirect Url</em>.
+Don't pay too much attention to this now, we'll get back to it later (it's all oauth2 related).
+<img src="images/registrering_a_new_api_client.png" alt="New Api Client Registration">
+</p>
 
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
+<p>Assuming everything went well, you should now be seeing you api client ID and client secret.
+<img src="images/a_new_client_id_secret_pair.png" alt="A New Api Client Keys" >
+</p>
 
-<h3>Rather Drive Stick?</h3>
+<h4>Open your irb console and write some code</h4>
 
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
+{% highlight ruby %}
+require 'sensr'
+Sensr.oauth_token = 'asaha7yqwokq08ru1hfkajfy7gerh'
 
-<h3>Authors and Contributors</h3>
+cam_id = ARGV[0].to_i
+c = Sensr::Camera.find(cam_id)</code></pre>
+{% endhighlight %}
 
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
+<pre><code>
+  
+```
+  require 'sensr'
+  Sensr.oauth_token = 'asaha7yqwokq08ru1hfkajfy7gerh'
 
-<h3>Support or Contact</h3>
-
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
+  cam_id = ARGV[0].to_i
+  c = Sensr::Camera.find(cam_id)</code></pre>
+```
       </section>
     </div>
 
