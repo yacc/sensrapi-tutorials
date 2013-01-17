@@ -22,8 +22,8 @@
           <h2 id="project_tagline">Tutorials and Example for Sensr.net api</h2>
 
             <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/yacc/sensrapi-tutorials/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/yacc/sensrapi-tutorials/tarball/master">Download this project as a tar.gz file</a>
+              <a class="zip_download_link" href="https://github.com/yacc/sensrapi-tutorials/archive/master.zip">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/yacc/sensrapi-tutorials/archive/master.tar.gz">Download this project as a tar.gz file</a>
             </section>
         </header>
     </div>
@@ -46,7 +46,7 @@ Use the <em>.tar.gz</em> or the <em>.zip</em> links on the top right of this pag
 Or just <em>wget</em> the gem file. We're in the process of publishing the gem, eventually you'll be able to just run a <code>gem install</code> command.
 
 <pre><code>
-  wget https://github.com/yacc/sensrapi-tutorials/sensrapi.gem
+  wget https://github.com/yacc/sensrapi-tutorials/archive/master.zip
 </code></pre>
 
 <h4>Get your Api secret keys</h4>
@@ -63,9 +63,12 @@ Don't pay too much attention to this now, we'll get back to it later (it's all o
 
 <h4>Open your irb console and write some code</h4>
 
+Grab the api token the "Developer application" page and save the code below in a ruby file <em>sensr_api_test.rb</em>.
+Make sure you replace the <em>my_api_token</em> before running the script. 
 <pre><code>
+  #!/usr/bin/env ruby
   require 'sensr'
-  Sensr.oauth_token = 'asaha7yqwokq08ru1hfkajfy7gerh'
+  Sensr.oauth_token = 'my_api_token'
 
   cam_id = ARGV[0].to_i
   c = Sensr::Camera.find(cam_id)
