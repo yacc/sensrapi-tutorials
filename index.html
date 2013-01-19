@@ -72,17 +72,18 @@ Don't pay too much attention to this now, we'll get back to it later (it's all o
 <img src="images/a_new_client_id_secret_pair.png" alt="A New Api Client Keys" >
 </p>
 
-<h4>Open your irb console and write some code</h4>
+<h4>Test your api settings</h4>
 
-Grab the api token the "Developer application" page and save the code below in a ruby file <em>sensr_api_test.rb</em>.
-Make sure you replace the <em>my_api_token</em> before running the script. 
+Grab the api token from the "Developer application" page and save the code below in a ruby file <em>sensr_api_test.rb</em>.
+Make sure you replace the <em>my_api_token</em> before running the script with <code>ruby sensr_api_test.rb</code>. 
+
 <pre><code>
   require 'rubygems'
   require 'sensr'
   Sensr.oauth_token = 'my_api_token'
 
   cams = Sensr::Camera.owned
-  cams.each {|c| puts "#{c.id} #{c.name}" }
+  cams.each {|c| puts "#{c.object_id} #{c.name}" }
 </code></pre>
   
 <h3>Examples</h3>
