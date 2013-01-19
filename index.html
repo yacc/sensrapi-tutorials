@@ -83,8 +83,7 @@ Make sure you replace the <em>my_api_token</em> before running the script with <
   Sensr.oauth_token = 'my_api_token'
 
   cams = Sensr::Camera.owned
-  cams.each {|c| puts "#{c.object_id} #{c.name}" }
-</code></pre>
+  cams.each {|c| puts  "camera: " + c.attributes["id"].to_s + ' ' + c.attributes["name"] + ' ' + c.attributes["accessibility"] }</code></pre>
   
 <h3>Examples</h3>
 
