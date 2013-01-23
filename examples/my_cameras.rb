@@ -1,8 +1,8 @@
+require 'rubygems'
 require 'sensr'
 require 'googlecharts'
-require './client_config.rb'
 
-Sensr.oauth_token = OAUTH_TOKEN
+Sensr.oauth_token = REPLACE_WITH_YOUR_OAUTH_TOKEN
 RestClient.log    = $stderr
 
-c = Sensr::Camera.all
+c = Sensr::Camera.owned

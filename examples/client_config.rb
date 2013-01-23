@@ -1,2 +1,0 @@
-OAUTH_TOKEN = ""
-MYCAMERA    = 446
