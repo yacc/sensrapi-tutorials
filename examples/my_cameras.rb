@@ -1,7 +1,7 @@
 require 'rubygems'
 require 'sensr'
 
-Sensr.oauth_token = "02e79d6b069589aeff34dd03bb050c20e01901eb4a59a4a4c6bcbd271a949067"
+Sensr.oauth_token = "REPLACE_WITH_YOUR_OAUTH_TOKEN"
 RestClient.log    = $stderr
 
 mycams = Sensr::Camera.owned
