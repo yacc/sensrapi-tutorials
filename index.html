@@ -1,94 +1,126 @@
 <!DOCTYPE html>
 <html>
 
-  <head>
-    <meta charset='utf-8' />
-    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <meta name="description" content="Sensrapi-tutorials : Tutorials for sensrapi" />
+<head>
+  <meta charset='utf-8' />
+  <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+  <meta name="description" content="Sensrapi-tutorials : Tutorials for sensrapi" />
 
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+  <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
 
-    <title>Sensrapi-tutorials</title>
-  </head>
+  <title>Sensrapi-tutorials</title>
+</head>
 
-  <body>
+<body>
 
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-          <a id="forkme_banner" href="https://github.com/yacc/sensrapi-tutorials">View on GitHub</a>
+  <!-- HEADER -->
+  <div id="header_wrap" class="outer">
+    <header class="inner">
+      <a id="forkme_banner" href="https://github.com/yacc/sensrapi-tutorials">View on GitHub</a>
+      <h1 id="project_title">Sensr.net Api Tutorials</h1>
+      <h2 id="project_tagline">Tutorials and Examples for Sensr.net API</h2>
+      <section id="downloads">
+        <a class="zip_download_link" href="https://github.com/yacc/sensrapi-tutorials/archive/master.zip">Download this project as a .zip file</a>
+        <a class="tar_download_link" href="https://github.com/yacc/sensrapi-tutorials/archive/master.tar.gz">Download this project as a tar.gz file</a>
+      </section>
+    </header>
+  </div>
 
-          <h1 id="project_title">Sensr.net Api Tutorials</h1>
-          <h2 id="project_tagline">Tutorials and Example for Sensr.net Ruby bindings</h2>
+  <!-- MAIN CONTENT -->
+  <div id="main_content_wrap" class="outer">
+    <section id="main_content" class="inner">
+      <h3>Welcome to the Sensr.net Apis</h3>
 
-            <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/yacc/sensrapi-tutorials/archive/master.zip">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/yacc/sensrapi-tutorials/archive/master.tar.gz">Download this project as a tar.gz file</a>
-            </section>
-        </header>
-    </div>
+      <p>The Sensr.net APIs allows you to programmatically access content from cameras on <a href="https://sensr.net">Sensr.net</a>. For example, with the API you can write a ruby program to build a time-lapse from your camera images, or extract motion trends across several weeks. The first paragraph consists of a quick start guide. The second introduces a couple of examples and tries to explain the guiding principles behind the Apis and how to better leverage them.</p>
 
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
-        <h3>Welcome to the Sensr.net Apis</h3>
+      <p>We always welcome feedback, please send your feedback regarding our Apis to developers At sensr.net</p>
 
-<p>The Sensr.net APIs allows you to programmatically access content from cameras on <a href="https://sensr.net">Sensr.net</a>. For example, with the API you can write a ruby program to build a time-lapse from your camera images, or extract motion trends across several weeks. The first paragraph consists of a quick start guide. The second introduces a couple of example scripts and tries to explain the guiding principles behind the Apis and how to better leverage them.</p>
+      <h1>Overview</h1>
+      The Sensr API uses the <a href="http://tools.ietf.org/html/draft-ietf-oauth-v2-31">OAuth 2.0 Protocol</a> for authentication and authorization. 
+      So the first thing we'll ask to do is to get an Sensr.net OAuth2 token. 
+      The Sensr.net API is restful and mostly self documented. The API cross-links with URL between different resources and the top level API entry point <em>https://api.sensr.net/u/v3/resources.json</em> always documents all resources available to the developer. The API returns JSON and partial ruby binding are provided as a gem.
 
-<p>We always welcome feedback, please send your feedback regarding our Apis to developers At sensr.net</p>
+      <h1>Quick Start Guide</h1>
+      <p>This is a 5 minute guide that should get you started and running quickly. You will need an account on <a href="https://sensr.net">Sensr.net</a> to get access to your Api keys. You will also need to have the curl command line tool installed in your environment.</p>
 
-<h3>Quick start guide</h3>
+      <h3><a name="get_oauth_token">Get an Oauth token</a></h3>  
+      <p>First, login to your sensr.net account and navigate to https://sensr.net/account/applications.
+        <img src="images/registrering_a_new_api_client.png" alt="New Api Client Registration">
 
-<p>This is a three step guide that should get you started and running (in ruby) quickly. You will need an account on <a href="https://sensr.net">Sensr.net</a> to get access to your Api keys.</p>
+        Then create a new api client, you will be asked to fill out a form with the following elements:
+        <table border="0" cellspacing="5" cellpadding="5">
+          <tr><th>Field</th><th>What is it?</th><th>Example</th></tr>
+          <tr><td>Application (client) Name</td><td>The name of you application or client</td><td>MyTestClient</td></tr>
+          <tr><td>Main URL</td><td>The link to your site</td><td>http://test_client.com</td></tr>
+          <tr><td>Callback URL</td><td>The url your users are redirected to after login in</td><td>http://test_client.com/welcome</td></tr>
+        </table>
+      </p>
+      <p>Assuming everything went well, you should now be seeing you api client ID and client secret, as well as one API token.
+        <img src="images/a_new_client_id_secret_pair.png" alt="A New Api Client Keys" >
+      </p>
 
-<h4>Install the sensr.net gem</h4>
-Run the following commands to install the sensr.net gem. Make sure you install the multi_json gem as well. 
+      <h3>Test the API with Curl</h3>
+      <p> If you have the command line tool <em>curl</em> installed, it's easy to get a first taste of the API. If you don't jump to the next section that introduces the <a href="#api_sanbox">API sandbox</a>. 
+        Grab the OAuth token from your <em>Developer Applications</em> tab. 
+        Now start a terminal and run the following command (make sure to replace the token by a valid one):
+        <pre><code>
+curl -i -X GET -H "Authorization: OAuth MY_OAUTH_TOKEN" \
+https://api.sensr.net/u/v3/cameras/owned.json
+        </code></pre>        
+      </p> 
+      <p>Make sure you use your Aouth token from your tab (not the one displayed in the example). You should get a json document in response. The API call to <code>cameras/owned.json</code> returns an array of cameras you own. Assuming you have cameras (active or inactive) on your account, you should be getting something like this:
+        <img src="images/example_cameras_owned_json.png" alt="Example cameras/owned.json" >
+      </p>
 
-<pre><code>
-  gem install sensr
-  gem install multi_json
-</code></pre>
+      <h1><a name="api_sanbox">The API sandbox</a></h1>
+      <p>
+      At sensr.net, we use the excellent API documentation tool <a href="https://github.com/wordnik/swagger-core/wiki">Swagger</a>.
+      Swagger is a specification and framework implementation for describing, producing, consuming, and visualizing RESTful web services. The easiest way to access your API sandbox, is to head over to you <a href="https://sensr.net/account/applications">developers applications</a> page. Look for a <em>API Documentation</em> link on the upper corner of the web page.   
+      <img src="images/the_api_sandbox.png" alt="API Sandbox" >
+      </p>
+      
+      <h1>Ruby Bindings</h1>
+      
+      <p>This is a three step guide that should get you started and running (in ruby) quickly. You will need an account on <a href="https://sensr.net">Sensr.net</a> to get access to your Api keys.</p>
 
-Make sure the gem is installed correctly:
-<pre><code>
-  yacin@mac temp]$ irb
-  >> require 'sensr'
-  => true
-  >> quit
-</code></pre>
+      <h4>Install the sensr.net gem</h4>
+      Run the following commands to install the official sensr.net gem. 
 
-<h4>Get your Api secret keys</h4>
+      <pre><code>
+        gem install sensr
+      </code></pre>
 
-<p>First, login to your sensr.net account and navigate to https://sensr.net/account/applications.
-Then create a new api client, you will be asked to fill out a form with the following elements <em>Display Name</em>,  <em>Link</em> and  <em>Redirect Url</em>.
-Don't pay too much attention to this now, we'll get back to it later (it's all oauth2 related).
-<img src="images/registrering_a_new_api_client.png" alt="New Api Client Registration">
-</p>
+      Make sure the gem is installed correctly:
+      <pre><code>
+        yacin@mac temp]$ irb
+        >> require 'sensr'
+        => true
+        >> quit
+      </code></pre>
 
-<p>Assuming everything went well, you should now be seeing you api client ID and client secret.
-<img src="images/a_new_client_id_secret_pair.png" alt="A New Api Client Keys" >
-</p>
+      <h4>Get your OAuth token</h4>
+      Refer to this previous section to <a href="#get_oauth_token">get an Oauth token</a>.
 
-<h4>Test your api settings</h4>
+      <h4>Test</h4>
 
-Grab the api token from the "Developer application" page and save the code below in a ruby file <em>sensr_api_test.rb</em>.
-Make sure you replace the <em>my_api_token</em> before running the script with <code>ruby sensr_api_test.rb</code>. 
+      Grab the OAuth token from the "Developer application" page and save the code below in a ruby file <em>sensr_api_test.rb</em>.
+      Make sure you replace the <em>MY_API_TOKEN</em> before running the script with <code>ruby sensr_api_test.rb</code>. 
 
-<pre><code>
-  require 'rubygems'
-  require 'sensr'
-  Sensr.oauth_token = 'my_api_token'
+      <pre><code>
+        require 'rubygems'
+        require 'sensr'
+        Sensr.oauth_token = 'MY_API_TOKEN'
 
-  cams = Sensr::Camera.owned
-  cams.each {|c| puts  "camera: " + c.attributes["id"].to_s + ' ' + c.attributes["name"] + ' ' + c.attributes["accessibility"] }</code></pre>
-  
-<h3>Examples</h3>
+        cams = Sensr::Camera.owned
+        cams.each {|c| puts  "camera: " + c.attributes["id"].to_s + ' ' + c.attributes["name"] + ' ' + c.attributes["accessibility"] }</code></pre>
 
-You will find several short ruby programs under the <a id="examples" href="https://github.com/yacc/sensrapi-tutorials/tree/master/examples">examples directory</a>.
-    
-  
-  
-  
+        <h3>Examples</h3>
+
+        You will find several short ruby programs under the <a id="examples" href="https://github.com/yacc/sensrapi-tutorials/tree/master/examples">examples directory</a>.
+
+
+
+
       </section>
     </div>
 
@@ -100,7 +132,7 @@ You will find several short ruby programs under the <a id="examples" href="https
       </footer>
     </div>
 
-    
+
 
   </body>
-</html>
+  </html>
